@@ -4,6 +4,8 @@ import WeatherCard from "./WeatherCard";
 import linkIcon from "../assets/link.svg";
 import searchIcon from "../assets/search.svg";
 import MyLocationIcon from '@mui/icons-material/MyLocation';
+// import { Audio } from 'react-loader-spinner'
+
 
 function Bg() {
     const [city, setCity] = useState("");
@@ -48,18 +50,18 @@ function Bg() {
     // };
 
 useEffect(()=>{
-    fetch("https://ipwhois.app/json/")
-    .then(response => response.json())
-    .then(data => {
-    //   console.log("Latitude:", data.latitude);
-    //   console.log("Longitude:", data.longitude);
-    //   console.log("City:", data.city);
-    //   console.log("Country:", data.country_name);
-      getGeoData(data.latitude,data.longitude)
-    })
-    .catch(error => console.error("Error fetching location:", error));
+  geoDataFromIp()
   
 },[])
+
+const geoDataFromIp=()=>{
+  fetch("https://ipwhois.app/json/")
+  .then(response => response.json())
+  .then(data => {
+    getGeoData(data.latitude,data.longitude)
+  })
+  .catch(error => console.error("Error fetching location:", error));
+}
 
 const getGeoData=async(latitude,longitude)=>{
     try {
@@ -124,7 +126,17 @@ const getGeoData=async(latitude,longitude)=>{
 
     //   GetWeatherData({ city, setData });
     // console.log(Object.keys(data).length > 0);
-    // if(Object.keys(data).length==0)return ""
+    if(Object.keys(data).length==0){
+    //   return <Audio
+    //   height="80"
+    //   width="80"
+    //   radius="9"
+    //   color="green"
+    //   ariaLabel="loading"
+    //   wrapperStyle
+    //   wrapperClass
+    // />
+    }
     return (
         <>
         <div className="box">
@@ -141,7 +153,7 @@ const getGeoData=async(latitude,longitude)=>{
                         e.key=="Enter" && getCityWeatherData()
                     }}/>
                     <img className="search-icon" style={{ cursor: "pointer" }} src={searchIcon} alt="searchIcon" onClick={getCityWeatherData} />
-                    <div className="my_location" onClick={handleBtnLatLng}>
+                    <div className="my_location" onClick={geoDataFromIp}>
                     <MyLocationIcon />
                     </div>
                 </div>
