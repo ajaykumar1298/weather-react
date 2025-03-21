@@ -21,7 +21,7 @@ function WeatherCard(props) {
             <div className="currtemp">
                 <div className="tempAndLogo">
                     <div>
-                        <img src={`../icons/${props.weather[0].icon}.svg`} width={200} alt="icon" />
+                        <img src={`../public/icons/${props.weather[0].icon}.svg`} width={200} alt="icon" />
                     </div>
                     <div>
                         {Math.round(props.weatherData.temp)}&deg;C
