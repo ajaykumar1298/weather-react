@@ -1,4 +1,4 @@
-/* @import "tailwindcss"; */
+@import "tailwindcss";
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap"); */
 * {
   padding: 0;
@@ -209,7 +209,7 @@ input {
     border-left: none;
   }
   .forcastdata div {
-    padding: 0 1rem;
+    padding: 0 1.5rem;
   }
   .box {
     width: fit-content;
