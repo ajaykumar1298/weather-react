@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import WeatherCard from "./WeatherCard";
-import searchIcon from "../assets/search.svg";
+import searchIcon from "/assets/search.svg";
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import ClipLoader from "react-spinners/ClipLoader";
 
