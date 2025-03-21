@@ -1,0 +1,49 @@
+.weather-widget {
+  background-color: #2a2e35;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.location h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.current-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.temperature {
+  font-size: 40px;
+}
+
+.condition {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.additional-info {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.info-item {
+  text-align: center;
+}
+
+.info-item span:first-child {
+  display: block;
+  font-weight: bold;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 12px;
+  text-align: center;
+}
