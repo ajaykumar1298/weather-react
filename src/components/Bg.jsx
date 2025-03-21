@@ -1,53 +1,19 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import WeatherCard from "./WeatherCard";
-import linkIcon from "../assets/link.svg";
 import searchIcon from "../assets/search.svg";
 import MyLocationIcon from '@mui/icons-material/MyLocation';
-// import { Audio } from 'react-loader-spinner'
-
+import ClipLoader from "react-spinners/ClipLoader";
 
 function Bg() {
     const [city, setCity] = useState("");
     const [data, setData] = useState({});
-    const [longitude, setLon] = useState(null);
-    const [latitude, setLat] = useState(null);
     const [lang, setLang] = useState(true);
-    // console.log(city);
     const [errorMsg,setErrorMsg]=useState(null)
+    let [onload,setOnload]=useState(true)
+    let color=window.innerWidth<768?"#fff":"#331744";
+    let loading=true
 
-    // useEffect(() => {
-    //     // if (navigator.geolocation) {
-    //     //     navigator.geolocation.getCurrentPosition(success, error);
-    //     // } else {
-    //     //     alert("Geolocation is not supported by this browser.");
-    //     // }
-
-    //     function success(position) {
-    //         console.log(position.coords.latitude, position.coords.longitude);
-    //         setLat(position.coords.latitude);
-    //         setLon(position.coords.longitude);
-    //         if (latitude && longitude) GetGeoLocationData();
-    //     }
-
-    //     function error() {
-    //         getCityWeatherData();
-    //     }
-    // }, [latitude, longitude]);
-    // const GetGeoLocationData = () => {
-    //     console.log("click hua");
-    //         if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(success, error);
-    //         setLat(position.coords.latitude);
-    //         setLon(position.coords.longitude);
-    //     } else {
-    //         alert("Geolocation is not supported by this browser.");
-    //     }
-    //     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${import.meta.env.VITE_API_KEY}`;
-    //     fetch(url)
-    //         .then((response) => response.json())
-    //         .then((result) => setData(result));
-    // };
 
 useEffect(()=>{
   geoDataFromIp()
@@ -74,7 +40,15 @@ const getGeoData=async(latitude,longitude)=>{
           setData({});
           setErrorMsg("City not found.");
         } else {
-          setData(result);
+          if(onload){
+            setTimeout(() => {
+              setOnload(false)
+              setData(result);
+            }, 500);
+          }else{
+
+            setData(result);
+          }
           setErrorMsg(""); // Clear error on successful fetch
         }
       } catch (e) {
@@ -127,15 +101,14 @@ const getGeoData=async(latitude,longitude)=>{
     //   GetWeatherData({ city, setData });
     // console.log(Object.keys(data).length > 0);
     if(Object.keys(data).length==0){
-    //   return <Audio
-    //   height="80"
-    //   width="80"
-    //   radius="9"
-    //   color="green"
-    //   ariaLabel="loading"
-    //   wrapperStyle
-    //   wrapperClass
-    // />
+      return (
+<div className="loader-container">
+  <ClipLoader color={color} loading={loading} size={100} aria-label="Loading Spinner" data-testid="loader"  cssOverride={{
+        borderWidth: "5px", 
+      }} />
+</div>
+
+      )
     }
     return (
         <>
@@ -157,18 +130,10 @@ const getGeoData=async(latitude,longitude)=>{
                     <MyLocationIcon />
                     </div>
                 </div>
-                {/* <div className="location-button">
-
-                    <MyLocationIcon className="my_location" onClick={handleBtnLatLng}/>
-                </div> */}
             </div>
                 <p className="error-msg">{errorMsg?errorMsg:""}</p>
             {Object.keys(data).length > 0 ? <WeatherCard sys={data.sys} weatherData={data.main} weather={data.weather} city={data.name} lang={lang} windData={data.wind} /> : ""}
-        
 
-            {/* <p onClick={() => setLang(!lang)} className="translater">
-                {lang ? "Hindi ?" : "Eng ?"}
-            </p> */}
         </div>
         </>
         
