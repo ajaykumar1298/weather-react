@@ -82,10 +82,10 @@ const getGeoData=async(latitude,longitude)=>{
             try {
               let data=  await fetch(url)
               data=await data.json()
-            //   console.log(data)
+
               if(data.cod=="404"){
                   setData({})
-                  setErrorMsg(data.message)
+                  setErrorMsg("City Not Found")
                 }else{
                     setData(data)
                     setErrorMsg(null)
@@ -100,7 +100,7 @@ const getGeoData=async(latitude,longitude)=>{
 
     //   GetWeatherData({ city, setData });
     // console.log(Object.keys(data).length > 0);
-    if(Object.keys(data).length==0){
+    if(Object.keys(data).length==0 && !errorMsg){
       return (
 <div className="loader-container">
   <ClipLoader color={color} loading={loading} size={100} aria-label="Loading Spinner" data-testid="loader"  cssOverride={{
